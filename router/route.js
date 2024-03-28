@@ -2,10 +2,25 @@ import { Router } from "express";
 import { addAddress, deleteAddress, deleteUser, getUser, login, register, updateAddress, updateUser, verifyUser } from "../controller/userController.js";
 import { createExclusiveGallery, createExclusiveService, createHomeBanner, createProofOfWork, getExclusiveGallery, getExclusiveServices, getHomeBanner, getProofOfWork } from "../controller/HomeController.js";
 import Auth from "../middleware/auth.js";
+import { validationSchema } from "../utils/userValidation.js";
+
+
+
 const router = Router();
 
 
-router.post('/register', register);
+// router.post('/register',validationSchema, register);
+router.post('/register', (req, res) => {
+    // Validate request body against the schema
+    const { error } = validationSchema.validate(req.body);
+    if (error) {
+        return res.status(400).json({ error: error.details[0].message });
+    }
+
+    // Call the register function from the controller
+    register(req, res);
+});
+
 router.post('/login',verifyUser, login);
 router.get('/getuser/:username', getUser);
 router.put('/updateuser/:username',Auth,  updateUser);

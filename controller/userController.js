@@ -91,6 +91,7 @@ export async function verifyUser(req, res, next){
 
 export async function register(req, res) {
     try {
+        
         const { username, password, email, mobile, firstName, lastName, profile, gender } = req.body;
 
         const existingUser = await userModel.findOne({ username }).exec();
