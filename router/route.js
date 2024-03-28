@@ -1,13 +1,14 @@
 import { Router } from "express";
 import { addAddress, deleteAddress, deleteUser, getUser, login, register, updateAddress, updateUser, verifyUser } from "../controller/userController.js";
 import { createExclusiveGallery, createExclusiveService, createHomeBanner, createProofOfWork, getExclusiveGallery, getExclusiveServices, getHomeBanner, getProofOfWork } from "../controller/HomeController.js";
+import Auth from "../middleware/auth.js";
 const router = Router();
 
 
 router.post('/register', register);
 router.post('/login',verifyUser, login);
 router.get('/getuser/:username', getUser);
-router.put('/updateuser/:username', updateUser);
+router.put('/updateuser/:username',Auth,  updateUser);
 router.delete('/deleteuser/:username', deleteUser);
 
 
