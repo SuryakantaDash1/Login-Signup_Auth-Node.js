@@ -266,6 +266,8 @@ export async function login(req, res) {
             username: user.username
         }, process.env.JWT_SECRET, {expiresIn: "30d"});
 
+        // Attach token to response headers
+        res.setHeader('Authorization', `Bearer ${token}`);
 
         // Respond with successful login message
         return res.status(200).send({
