@@ -1,6 +1,7 @@
 import userModel from "../model/user.model.js";
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
+
 // import springedge from 'springedge';
 
 
@@ -206,6 +207,8 @@ export async function updateAddress(req, res) {
         user.addresses[addressIndex].city = city;
         user.addresses[addressIndex].state = state;
         user.addresses[addressIndex].pincode = pincode;
+        user.addresses[addressIndex].lat = lat;
+        user.addresses[addressIndex].lang = lang;
 
         await user.save();
 
